@@ -9,49 +9,45 @@ The primary goal of this file is to demonstrate a simple python program to class
 @author: rk
 """
 
-def classifyTriangle(a,b,c):
+def classify_triangle(a_side,b_side,c_side):
     """
-    Your correct code goes here...  Fix the faulty logic below until the code passes all of 
-    you test cases. 
-    
+    Your correct code goes here...  Fix the faulty logic below until the code passes all of
+    you test cases.
+
     This function returns a string with the type of triangle from three integer values
     corresponding to the lengths of the three sides of the Triangle.
-    
+
     return:
         If all three sides are equal, return 'Equilateral'
         If exactly one pair of sides are equal, return 'Isoceles'
         If no pair of  sides are equal, return 'Scalene'
         If not a valid triangle, then return 'NotATriangle'
         If the sum of any two sides equals the squate of the third side, then return 'Right'
-      
+
       BEWARE: there may be a bug or two in this code
     """
 
     # require that the input values be >= 0 and <= 200
-    if a >= 200 or b >= 200 or c >= 200:
+    if not (0 <= a_side <= 200) or not (0 <= b_side <= 200) or not (0 <= c_side <= 200) or not (
+            isinstance(a_side, int) and isinstance(b_side, int) and isinstance(c_side, int)):
         return 'InvalidInput'
 
-    elif a <= 0 or b <= 0 or c <= 0:
-        return 'InvalidInput'
-    
-    # verify that all 3 inputs are integers  
-    # Python's "isinstance(object,type) returns True if the object is of the specified type
-    elif not(isinstance(a,int) and isinstance(b,int) and isinstance(c,int)):
-        return 'InvalidInput';
-      
-    # This information was not in the requirements spec but 
+    # This information was not in the requirements spec but
     # is important for correctness
     # the sum of any two sides must be strictly less than the third side
     # of the specified shape is not a triangle
-    elif (a >= (b + c)) or (b >= (a + c)) or (c >= (a + b)):
+
+    if (a_side >= (b_side + c_side)) or (b_side >= (a_side + c_side)) or (c_side >= (a_side + b_side)):
         return 'NotATriangle'
-        
-    # now we know that we have a valid triangle 
-    elif a == b and a == c and b == c:
+
+    # now we know that we have a valid triangle
+    if a_side == b_side and a_side == c_side:
         return 'Equilateral'
-    elif ((a ** 2) + (b ** 2)) == (c ** 2) or ((a ** 2) + (c ** 2)) == (b ** 2) or ((c ** 2) + (b ** 2)) == (a ** 2):
+    if ((a_side ** 2) + (b_side ** 2)) == (c_side ** 2) \
+            or ((a_side ** 2) + (c_side ** 2)) == (b_side ** 2) \
+            or ((c_side ** 2) + (b_side ** 2)) == (a_side ** 2):
         return 'Right'
-    elif (a != b) and  (b != c) and (a != c):
+    if (a_side != b_side) and (b_side != c_side) and (a_side != c_side):
         return 'Scalene'
-    else:
-        return 'Isoceles'
+
+    return 'Isoceles'
